@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    {% csrf_token %}
+
+    <!-- =============================================================================Card================ -->
+    <div class="card h-100 d-flex flex-column">
+        <!-- =========================================================================Card Header========= -->
+        <div class="card-header">
+            <div class="title_style">
+                <span class="title_span_style">{{ title_name }}</span>
+            </div>
+            <div class="form_all border border-3 p-3 border_style">
+                <div class="row align-items-center ">
+                    <div class="col-md-2">
+                        <label class="form-label">{% trans "ConsumableType" %}:</label>
+                        <label for="id_ConsumableType"></label><select id="id_ConsumableType" class="form-select my-input">
+                        <option selected value="all">{% trans "All" %}</option>
+                        {% for i in ConsumableType %}
+                            <option value="{{ i }}">{% trans i %}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" for="id_sn">{% trans "SN" %}:</label>
+                        <select id="id_sn" class="form-select my-input" data-dropdown-style="hidden">
+                            <option selected value=''></option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "Model" %}:</label>
+                        <label for="id_model"></label><input type="text" id="id_model" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "VersionType" %}:</label>
+                        <label for="id_version"></label><input type="text" id="id_version" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "ToolType" %}:</label>
+                        <label for="id_tooltype"></label><input type="text" id="id_tooltype" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "Status" %}:</label>
+                        <label for="id_status"></label><input type="text" id="id_status" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "InScrapping" %}:</label>
+                        <label for="id_inscrapping"></label><input type="text" id="id_inscrapping" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "RatedLife" %}:</label>
+                        <label for="id_ratedlife"></label><input type="text" id="id_ratedlife" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "UsefulLife" %}:</label>
+                        <label for="id_usefullife"></label><input type="text" id="id_usefullife" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "Comment" %}:</label>
+                        <label for="id_comment"></label><input type="text" id="id_comment" class="form-control my-input">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12 d-flex justify-content-end align-items-center">
+                        <button id="id_submit" type="submit" class="btn btn-secondary me-2 button_style rot-135">{% trans "Submit" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- =========================================================================Card Body=========== -->
+        <div class="card-body flex-grow-8">
+            <div class="table-responsive border border-3 p-3 border_style table-with-title">
+                <h1>{% trans 'Scrap Info' %}</h1>
+                <table id="scrap_dt" class="table table-striped table-bordered table-hover">
+                    <thead id="scrap_dt_thead">
+                    <tr>
+                        {% for i in head_list %}
+                            <th>{{ i }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody id="scrap_dt_tbody">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- =========================================================================Card Footer========= -->
+        <div class="card-footer">
+        </div>
+    </div>
+    <script>
+        let sn_list = get_sn_list_by_all_type('Stock', 'status')
+        options_to_select("id_sn", sn_list)
+        $(document).ready(function () {
+            const scrap_dt = $("#scrap_dt").DataTable(dt);
+            let readonly_dt = ["id_model", "id_version", "id_tooltype", "id_status", "id_inscrapping", "id_ratedlife", "id_usefullife"]
+            set_attr_readonly(readonly_dt)
+
+            $("#id_ConsumableType").change(function () {
+                let ConsumableType = $("#id_ConsumableType").val()
+                let s_list = get_sn_list_by_mul_condition('', 'all', 'all', 'Stock', 'all', ConsumableType)
+                options_to_select("id_sn", s_list)
+            })
+
+            $("#id_sn").change(function () {
+                let sn = $("#id_sn").val()
+                if (sn) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/CMS/ScrapInfo/',
+                        data: {
+                            'sn': sn,
+                        },
+                        success: function (reply) {
+                            if (reply.type === 'success') {
+                                let readonly_list = reply.data['readonly_list']
+                                set_input_values(readonly_list[0], readonly_dt)
+                            } else {
+                                myAlert(reply.msg, reply.type)
+                            }
+                        }
+                    })
+                }
+            })
+
+            function submit() {
+                let sn = $("#id_sn").val()
+                let comment = $("#id_comment").val()
+                if (sn) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '',
+                        data: {
+                            'sn': sn,
+                            'comment': comment,
+                        },
+                        success: function (reply) {
+                            if (reply.type === 'success') {
+                                let data_list = reply.data['data_list']
+                                list_to_dt_data(scrap_dt, data_list, 'clear')
+                                set_val_empty(readonly_dt)
+                                set_val_empty(["id_sn", "id_comment"])
+                                removeSelectedOption(sn)
+                            }
+                            myAlert(reply.msg, reply.type)
+                        }
+                    })
+                } else {
+                    myAlert("提示：请输入耗材编号！", 'danger')
+                }
+            }
+
+            $("#id_submit").click(function () {
+                submit();
+            })
+
+        })
+    </script>
+{% endblock %}
+
+
+

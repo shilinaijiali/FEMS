@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    {% csrf_token %}
+
+    <!-- =============================================================================Card================ -->
+    <div class="card h-100 d-flex flex-column">
+        <!-- =========================================================================Card Header========= -->
+        <div class="card-header">
+            <div class="title_style">
+                <span class="title_span_style">{{ title_name }}</span>
+            </div>
+            <div class="form_all border border-3 p-3 border_style">
+                <div class="col-md-2">
+                    <label class="form-label">{% trans "ConsumableType" %}:</label>
+                    <label for="id_ConsumableType"></label><select id="id_ConsumableType" class="form-select my-input">
+                    <option selected value="all">{% trans "All" %}</option>
+                    {% for i in ConsumableType %}
+                        <option value="{{ i }}">{% trans i %}</option>
+                    {% endfor %}
+                </select>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12 d-flex justify-content-end align-items-center">
+                        <button id="id_submit" type="submit" class="btn btn-secondary me-2 button_style rot-135">{% trans "Submit" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- =========================================================================Card Body=========== -->
+        <div class="card-body flex-grow-8">
+            <div class="table-responsive border border-3 p-3 border_style table-with-title">
+                <h1>{% trans 'Scrap Info' %}</h1>
+                <table id="scrap_dt" class="table table-striped table-bordered table-hover">
+                    <thead id="scrap_dt_thead">
+                    <tr>
+                        <th><label for="select-all"></label><input type="checkbox" id="select-all"></th>
+                        {% for i in head_list %}
+                            <th>{{ i }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody id="scrap_dt_tbody">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- =========================================================================Card Footer========= -->
+        <div class="card-footer">
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            const dt = {
+                "bAutoWidth": false,//自动宽度
+                "scrollCollapse": true, // 高度自适应
+                "bFilter": false, //过滤功能
+                "bLengthChange": false, //改变每页显示数据数量
+                'iDisplayLength': 10, //用于指定当DataTable设置为滚动时，最多可以一屏显示多少条数据
+                {#"sScrollY": '300px', //是否开启垂直滚动，以及指定滚动区域大小#}
+                'responsive': true, // Enable responsive design 实现响应式设计
+                'hover': true, // Enable hover effects 启动悬停效果
+                'order': [[1, 'asc']], // Enable sorting by the first column in ascending order 启用按第二列升序排序
+                'columnDefs': [{
+                    bSortable: false, //设置第一列不可排序
+                    targets: 0,
+                    data: null,
+                    className: 'text-center',
+                    defaultContent: "<input type ='checkbox' class='select-row' value=''>",
+                },],
+            };
+            const scrap_dt = $("#scrap_dt").DataTable(dt);
+
+            // 全选/全不选复选框
+            $('#select-all').on('click', function () {
+                if (this.checked) {
+                    // 全选
+                    $('input.select-row').prop('checked', true);
+                } else {
+                    // 全不选
+                    $('input.select-row').prop('checked', false);
+                }
+            });
+
+            // 单选复选框
+            $('#scrap_dt_tbody').on('click', 'input.select-row', function () {
+                if ($('input.select-row:checked').length === $('input.select-row').length) {
+                    // 所有复选框都被选中，则勾选全选复选框
+                    $('#select-all').prop('checked', true);
+                } else {
+                    // 存在未被选中的复选框，则取消全选复选框勾选
+                    $('#select-all').prop('checked', false);
+                }
+            });
+
+            $("#id_ConsumableType").change(function () {
+                let ConsumableType = $("#id_ConsumableType").val()
+                if (ConsumableType !== 'all') {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/CMS/get_C_Scrap_list/',
+                        data: {
+                            'ConsumableType': ConsumableType
+                        },
+                        success: function (reply) {
+                            if (reply.type === 'success') {
+                                let sn_list = reply.data['sn_list']
+                                list_to_dt_data_checkbox0(scrap_dt, sn_list, 'clear')
+                            } else {
+                                myAlert(reply.msg, reply.type)
+                            }
+                        }
+                    })
+                }
+            })
+
+            function confirm() {
+                let ConsumableType = $("#id_ConsumableType").val()
+                let scrap_list = get_table_rows_data_chosen('scrap_dt_tbody')
+                if (scrap_list[0] && ConsumableType !== 'all') {
+                    $.ajax({
+                        type: 'POST',
+                        url: '',
+                        data: {
+                            'ConsumableType': ConsumableType,
+                            'scrap_list': JSON.stringify(scrap_list),
+                        },
+                        success: function (reply) {
+                            if (reply.type === 'success') {
+                                let mould_list = reply.data['mould_list']
+                                list_to_dt_data_checkbox0(scrap_dt, mould_list, 'clear')
+                            }
+                            myAlert(reply.msg, reply.type)
+                        }
+                    })
+                }
+            }
+
+            $("#id_submit").click(function () {
+                confirm();
+            })
+
+        })
+    </script>
+{% endblock %}

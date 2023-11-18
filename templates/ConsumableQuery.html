@@ -1,0 +1,475 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    {% csrf_token %}
+
+    <!-- =============================================================================Card================ -->
+    <div class="card h-100 d-flex flex-column">
+        <!-- =========================================================================Card Header========= -->
+        <div class="card-header">
+            <div class="title_style">
+                <span class="title_span_style">{{ title_name }}</span>
+            </div>
+            <div class="form_all border border-3 p-3 border_style">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="form-label">{% trans "ConsumableType" %}:</label>
+                        <label for="id_ConsumableType"></label><select id="id_ConsumableType" class="form-select my-input">
+                        <option selected value="all">{% trans "All" %}</option>
+                        {% for i in ConsumableType %}
+                            <option value="{{ i }}">{% trans i %}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">{% trans "ToolType" %}:</label>
+                        <label for="id_tooltype"></label><select id="id_tooltype" class="form-select my-input">
+                        <option selected value="all">{% trans "All" %}</option>
+                        {% for i in ToolType %}
+                            <option value="{{ i }}">{% trans i %}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" for="id_version">{% trans "VersionType" %}:</label>
+                        <select id="id_version" class="form-select my-input">
+                            <option selected value="all">{% trans "All" %}</option>
+                            {% for i in VersionType %}
+                                <option value="{{ i }}">{% trans i %}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" for="id_status">{% trans "Status" %}:</label>
+                        <select id="id_status" class="form-select my-input">
+                            <option selected value="all">{% trans "All" %}</option>
+                            {% for i in StatusType %}
+                                <option value="{{ i }}">{% trans i %}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" for="id_model">{% trans "Model" %}:</label>
+                        <select id="id_model" class="form-select my-input">
+                            <option selected value="all">{% trans "All" %}</option>
+                            {% for i in Model_list %}
+                                <option value="{{ i }}">{% trans i %}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" for="id_sn">{% trans "SN" %}:</label>
+                        <select id="id_sn" class="form-select my-input" data-dropdown-style="hidden">
+                            <option selected value=''></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12 d-flex justify-content-end align-items-center">
+                        <button id="export_excel" class="btn btn-success button_style rot-135">{% trans "Export to Excel" %}</button>
+                        <button id="id_edit" type="submit" class="btn btn-secondary me-2 button_style rot-135">{% trans "Edit" %}</button>
+                        <button id="id_ok" type="submit" class="btn btn-primary button_style rot-135">{% trans "Query" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- =========================================================================Card Body=========== -->
+        <div class="card-body flex-grow-8">
+            <div class="table-responsive border border-3 p-3 border_style table-with-title">
+                <table id="query_dt" class="table table-striped table-bordered table-hover">
+                    <thead id="query_dt_thead">
+                    <tr>
+                        {% for i in head_list %}
+                            <th>{{ i }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody id="query_dt_tbody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive border border-3 p-3 border_style table-with-title">
+                <h1>{% trans 'Moulds Info' %}</h1>
+                <div class="row">
+                    <div class="col-md-4">
+                        <table id="size_dt" class="table table-striped table-bordered table-hover">
+                            <thead id="size_dt_thead">
+                            <tr>
+                                {% for i in size_head_list %}
+                                    <th>{{ i }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                            <tbody id="size_dt_tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4">
+                        <table id="width_dt" class="table table-striped table-bordered table-hover">
+                            <thead id="width_dt_thead">
+                            <tr>
+                                {% for i in width_head_list %}
+                                    <th>{{ i }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                            <tbody id="width_dt_tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4">
+                        <table id="angle_dt" class="table table-striped table-bordered table-hover">
+                            <thead id="angle_dt_thead">
+                            <tr>
+                                {% for i in angle_head_list %}
+                                    <th>{{ i }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                            <tbody id="angle_dt_tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive border border-3 p-3 border_style table-with-title">
+                <h1>{% trans 'Screen Info' %}</h1>
+                <div class="row">
+                    <div class="col-md-6">
+                        <table id="spacing_dt" class="table table-striped table-bordered table-hover">
+                            <thead id="spacing_dt_thead">
+                            <tr>
+                                {% for i in spacing_head_list %}
+                                    <th>{{ i }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                            <tbody id="spacing_dt_tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table id="tension_dt" class="table table-striped table-bordered table-hover">
+                            <thead id="tension_dt_thead">
+                            <tr>
+                                {% for i in tension_head_list %}
+                                    <th>{{ i }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                            <tbody id="tension_dt_tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- =========================================================================Card Footer========= -->
+        <div class="card-footer">
+        </div>
+    </div>
+
+
+    <script>
+        let sn_list = get_all_consumable_list()
+        options_to_select("id_sn", sn_list)
+        $(document).ready(function () {
+            const query_dt = $("#query_dt").DataTable(checkbox_dt_with_export_excel);
+            const size_dt = $("#size_dt").DataTable(simple_dt);
+            const width_dt = $("#width_dt").DataTable(simple_dt);
+            const angle_dt = $("#angle_dt").DataTable(simple_dt);
+            const spacing_dt = $("#spacing_dt").DataTable(simple_dt);
+            const tension_dt = $("#tension_dt").DataTable(simple_dt);
+
+            $("#id_ConsumableType").change(function () {
+                let ConsumableType = $("#id_ConsumableType").val()
+                $.ajax({
+                    type: 'POST',
+                    url: '/CMS/get_all_type_by_ConsumableType/',
+                    data: {
+                        'ConsumableType': ConsumableType,
+                    },
+                    success: function (reply) {
+                        if (reply.type === 'success') {
+                            let version_list = reply.data['version_list']
+                            let type_list = reply.data['type_list']
+                            let model_list = reply.data['model_list']
+                            change_options('id_version', version_list)
+                            change_options('id_tooltype', type_list)
+                            change_options('id_model', model_list)
+                            let sn_list = get_sn_list_by_all_type(ConsumableType, 'ConsumableType')
+                            options_to_select("id_sn", sn_list)
+                        } else {
+                            myAlert(reply.msg, reply.type)
+                        }
+                    }
+                })
+            })
+
+            function change() {
+                let sn = $("#id_sn").val();
+                let tooltype = $("#id_tooltype").val();
+                let versiontype = $("#id_version").val();
+                let statustype = $("#id_status").val();
+                let model = $("#id_model").val();
+                let ConsumableType = $("#id_ConsumableType").val()
+                $.ajax({
+                    type: 'POST',
+                    url: '/CMS/get_sn_list_by_mul_condition/',
+                    data: {
+                        'sn': sn,
+                        'tooltype': tooltype,
+                        'version': versiontype,
+                        'status': statustype,
+                        'model': model,
+                        'ConsumableType': ConsumableType,
+                    },
+                    success: function (reply) {
+                        if (reply.type === 'success') {
+                            let sn_list = reply.data['sn_list']
+                            options_to_select("id_sn", sn_list)
+                        } else {
+                            myAlert(reply.msg, reply.type)
+                        }
+                    }
+                })
+            }
+
+            $("#id_version").change(function () {
+                change()
+            })
+
+            $("#id_model").change(function () {
+                change()
+            })
+
+            $("#id_tooltype").change(function () {
+                change()
+            })
+
+            $("#id_status").change(function () {
+                change()
+            })
+
+            // 查询Moulds表中数据
+            function submit() {
+                let sn = $("#id_sn").val();
+                let tooltype = $("#id_tooltype").val();
+                let versiontype = $("#id_version").val();
+                let statustype = $("#id_status").val();
+                let model = $("#id_model").val();
+                let ConsumableType = $("#id_ConsumableType").val()
+                $.ajax({
+                    type: 'POST',
+                    url: '',
+                    data: {
+                        'sn': sn,
+                        'tooltype': tooltype,
+                        'version': versiontype,
+                        'status': statustype,
+                        'model': model,
+                        'ConsumableType': ConsumableType,
+                    },
+                    success: function (reply) {
+                        if (reply.type === 'success') {
+                            let data = reply.data
+                            let mould_list = data['mould_list']
+                            let size_list = data['size_list']
+                            let width_list = data['width_list']
+                            let angle_list = data['angle_list']
+                            let spacing_list = data['spacing_list']
+                            let tension_list = data['tension_list']
+                            if (mould_list) {
+                                list_to_dt_data_checkbox0(query_dt, mould_list, 'clear')
+                                list_to_dt_data(size_dt, size_list, 'clear')
+                                list_to_dt_data(width_dt, width_list, 'clear')
+                                list_to_dt_data(angle_dt, angle_list, 'clear')
+                                list_to_dt_data(spacing_dt, spacing_list, 'clear')
+                                list_to_dt_data(tension_dt, tension_list, 'clear')
+                            }
+                        }
+                        myAlert(reply.msg, reply.type)
+                    }
+                })
+            }
+
+            $("#id_ok").click(function () {
+                submit();
+            })
+
+            $("#id_sn").keydown(function (e) {
+                if (e.keyCode === 13) {
+                    submit();
+                }
+            })
+
+            // 绑定表格行的 click 事件
+            $('#query_dt_tbody').on('dblclick', 'tr', function () {
+                // 获取所点击的行的第二列数据
+                const sn = $(this).find('td:eq(1)').text();
+                // 输出所点击的行的第二列数据
+                $.ajax({
+                    type: 'POST',
+                    url: '',
+                    data: {
+                        'sn': sn,
+                        'tooltype': '',
+                        'version': '',
+                        'status': '',
+                        'model': '',
+                        'ConsumableType': '',
+                    },
+                    success: function (reply) {
+                        if (reply.type === 'success') {
+                            let data = reply.data
+                            let size_list = data['size_list']
+                            let width_list = data['width_list']
+                            let angle_list = data['angle_list']
+                            let spacing_list = data['spacing_list']
+                            let tension_list = data['tension_list']
+                            list_to_dt_data(size_dt, size_list, 'clear')
+                            list_to_dt_data(width_dt, width_list, 'clear')
+                            list_to_dt_data(angle_dt, angle_list, 'clear')
+                            list_to_dt_data(spacing_dt, spacing_list, 'clear')
+                            list_to_dt_data(tension_dt, tension_list, 'clear')
+                        }
+                        myAlert(reply.msg, reply.type)
+                    }
+                })
+            });
+
+            function edit() {
+                let mould_list = get_table_rows_data_chosen('query_dt_tbody')
+                let sn = $("#id_sn").val()
+                if (mould_list && mould_list.length === 1) {
+                    let id_status = mould_list[0][6]
+                    let id_ConsumableType = mould_list[0][1]
+                    if (id_status === 'Using' || id_status === '使用中') {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/CMS/ScreenUsage/',
+                            data: {
+                                'sn': sn,
+                            },
+                            success: function () {
+                                let id_sn = mould_list[0][0]
+                                let id_model = mould_list[0][5]
+                                let id_version = mould_list[0][3]
+                                let id_tooltype = mould_list[0][4]
+                                let id_usefullife = mould_list[0][7]
+                                let id_ratedlife = mould_list[0][8]
+                                let url = window.location.href
+                                let pathname = window.location.pathname
+                                if (id_ConsumableType === 'Moulds' || id_ConsumableType === '刀模') {
+                                    let new_path = '/CMS/MouldsUsage?id_sn=' + id_sn + '&id_ConsumableType=' + id_ConsumableType
+                                        + '&id_model=' + id_model + '&id_version=' + id_version + '&id_tooltype=' + id_tooltype
+                                        + '&id_status=' + id_status + '&id_ratedlife=' + id_ratedlife + '&id_usefullife=' + id_usefullife
+                                    window.location.replace(url.replace(pathname, new_path))
+                                    window.location.href = url.replace(pathname, new_path)
+                                    window.open(url.replace(pathname, new_path))
+                                } else {
+                                    let new_path = '/CMS/ScreenUsage?id_sn=' + id_sn + '&id_ConsumableType=' + id_ConsumableType
+                                        + '&id_model=' + id_model + '&id_version=' + id_version + '&id_tooltype=' + id_tooltype
+                                        + '&id_status=' + id_status + '&id_ratedlife=' + id_ratedlife + '&id_usefullife=' + id_usefullife
+                                    window.location.replace(url.replace(pathname, new_path))
+                                    window.location.href = url.replace(pathname, new_path)
+                                    window.open(url.replace(pathname, new_path))
+                                }
+                            }
+                        })
+                    } else {
+                        myAlert('提示：所选耗材编号的状态不为使用中', 'danger')
+                    }
+                } else {
+                    myAlert('提示：请勾选一条数据进行操作', 'danger')
+                }
+            }
+
+            $("#id_edit").click(function () {
+                edit();
+            })
+
+            // 通过后端使用pandas库导出到Excel
+            $('#export_excel').click(function () {
+                // 获取数据
+                const body = get_table_rows_data("query_dt_tbody");
+                if (body[0]) {
+                    {#exportToExcel()#}
+                    // 获取表头数据
+                    // const columns = query_dt.columns().header().toArray().map(function (header) {
+                    //    return $(header).text();
+                    // });
+                    // 将表头数据的第一列去掉
+                    // columns.shift();
+                    // 获取所有数据
+                    const allData = query_dt.rows().data();
+                    // 将所有数据组织成二维数组，并只取第二列的数据
+                    const dataArray = [];
+                    allData.each(function (rowData) {
+                        dataArray.push(rowData[1]); // Only take the second column data
+                    });
+                    // 发送Ajax请求到后端
+                    $.ajax({
+                        url: '/CMS/export_excel/',
+                        method: 'POST',
+                        data: {
+                            'sn_list': JSON.stringify(dataArray),
+                        },
+                        xhrFields: {
+                            responseType: 'blob'
+                        },
+                        success: function (response) {
+                            const url = window.URL.createObjectURL(new Blob([response]));
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'consumable.xlsx';
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                        },
+                    });
+                } else {
+                    myAlert("表中没有数据，请查询后再执行导出到Excel表", 'danger')
+                }
+            });
+
+            // 使用前端function进行导出数据
+            function exportToExcel() {
+                // 获取表头数据
+                const columns = query_dt.columns().header().toArray().map(function (header) {
+                    return $(header).text();
+                });
+
+                // 将表头数据的第一列去掉
+                columns.shift();
+
+                // 获取所有数据
+                const allData = query_dt.rows().data();
+
+                // 将表头数据添加到数据数组的第一行
+                const dataArray = [columns];
+
+                // 将所有数据组织成二维数组，并去掉每行的第一列数据
+                allData.each(function (rowData) {
+                    const dataRow = [];
+                    rowData.forEach(function (dataItem, index) {
+                        if (index > 0) {
+                            dataRow.push(dataItem);
+                        }
+                    });
+                    dataArray.push(dataRow);
+                });
+
+                // 创建Excel文件
+                const worksheet = XLSX.utils.aoa_to_sheet(dataArray);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+                const excelBuffer = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
+
+                // 将Excel文件下载到本地
+                saveAs(new Blob([excelBuffer], {type: 'application/octet-stream'}), 'Consumable.xlsx');
+            }
+        })
+    </script>
+{% endblock %}

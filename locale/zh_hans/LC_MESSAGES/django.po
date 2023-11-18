@@ -1,0 +1,571 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-07 10:20+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+#: .\CMS\settings.py:126
+msgid "English"
+msgstr "英文"
+
+#: .\CMS\settings.py:127
+msgid "Traditional Chinese"
+msgstr "繁体中文"
+
+#: .\CMS\settings.py:128
+msgid "Simplified Chinese"
+msgstr "简体中文"
+
+#: .\CMS\settings.py:159
+msgid "Authentication and Authorization"
+msgstr "认证与授权"
+
+#: .\CMS\settings.py:160
+msgid "Type Setting Modeling-"
+msgstr "类型设定模块"
+
+#: .\CMS\settings.py:161
+msgid "Consumable Setting Modeling-"
+msgstr "耗材设定模块"
+
+#: .\CMS\settings.py:163
+msgid "Admin Log Modeling-"
+msgstr "Admin日志模块"
+
+#: .\CMSapp\models.py:6 .\CMSapp\models.py:22 .\CMSapp\models.py:40
+msgid "name"
+msgstr "名称"
+
+#: .\CMSapp\models.py:7 .\CMSapp\models.py:24
+msgid "comment"
+msgstr "备注"
+
+#: .\CMSapp\models.py:9 .\CMSapp\models.py:26
+msgid "lastupdate"
+msgstr "最新操作时间"
+
+#: .\CMSapp\models.py:16
+msgid "TypeGroup"
+msgstr "类型群组"
+
+#: .\CMSapp\models.py:23
+msgid "typegroup"
+msgstr "类型群组"
+
+#: .\CMSapp\models.py:33
+msgid "TypeDefinition"
+msgstr "类型定义"
+
+#: .\CMSapp\models.py:39
+msgid "Sn"
+msgstr "耗材编号"
+
+#: .\CMSapp\models.py:42
+msgid "version"
+msgstr "版本编号"
+
+#: .\CMSapp\models.py:44
+msgid "Tooltype"
+msgstr "类别"
+
+#: .\CMSapp\models.py:45 .\templates\MouldUsage.html:18
+msgid "Model"
+msgstr "机种"
+
+#: .\CMSapp\models.py:46 .\templates\MouldQuery.html:39
+#: .\templates\MouldUsage.html:30
+msgid "Status"
+msgstr "状态"
+
+#: .\CMSapp\models.py:47
+msgid "Usefullife"
+msgstr "使用寿命"
+
+msgid "UsefulLife"
+msgstr "使用寿命"
+
+#: .\CMSapp\models.py:48
+msgid "Ratedlife"
+msgstr "额定寿命"
+
+#: .\CMSapp\models.py:49 .\templates\MouldUsage.html:45
+msgid "Position"
+msgstr "使用位置"
+
+#: .\CMSapp\models.py:52 .\templates\MouldUsage.html:48
+msgid "Comment"
+msgstr "备注"
+
+#: .\CMSapp\models.py:55
+msgid "Consumable"
+msgstr "耗材入库"
+
+#: .\templates\MouldQuery.html:12 .\templates\MouldUsage.html:12
+msgid "SN"
+msgstr "耗材编号"
+
+#: .\templates\MouldQuery.html:15 .\templates\MouldUsage.html:27
+msgid "ToolType"
+msgstr "类别"
+
+#: .\templates\MouldQuery.html:31 .\templates\MouldUsage.html:21
+msgid "VersionType"
+msgstr "版本类型"
+
+#: .\templates\MouldQuery.html:48 .\templates\MouldUsage.html:52
+msgid "Submit"
+msgstr "提交"
+
+#: .\templates\MouldQuery.html:59
+msgid "Edit"
+msgstr "编辑"
+
+#: .\templates\MouldUsage.html:15
+msgid "Name"
+msgstr "名称"
+
+#: .\templates\MouldUsage.html:33
+msgid "RatedLife"
+msgstr "额定寿命"
+
+#: .\templates\MouldUsage.html:36
+msgid "RemainingLife"
+msgstr "剩余寿命"
+
+#: .\templates\MouldUsage.html:39
+msgid "UseTime"
+msgstr "使用时间"
+
+#: .\templates\MouldUsage.html:42
+msgid "UseNumber"
+msgstr "使用次数"
+
+#: .\templates\MouldUsage.html:55
+msgid "Show"
+msgstr "显示"
+
+#: .\templates\base.html:10 .\templates\login.html:8 .\templates\login.html:19
+msgid "Consumable Manage System"
+msgstr "Sensor Film关键治具信息E化系统"
+
+#: .\templates\base.html:57
+msgid "Home"
+msgstr "首页"
+
+#: .\templates\base.html:64
+msgid "Language Changed"
+msgstr "语言切换"
+
+#: .\templates\base.html:86
+msgid "Logout"
+msgstr "登出"
+
+#: .\templates\base.html:93
+msgid "Consumable Manage"
+msgstr "耗材管理"
+
+#: .\templates\base.html:97
+msgid "Consumable Query"
+msgstr "耗材查询"
+
+#: .\templates\base.html:100
+msgid "Consumable Usage"
+msgstr "耗材使用"
+
+#: .\templates\login.html:28
+msgid "Login"
+msgstr "登录"
+
+msgid "sn"
+msgstr "编号"
+
+msgid "tooltype"
+msgstr "类别"
+
+msgid "model"
+msgstr "机种"
+
+msgid "status"
+msgstr "状态"
+
+msgid "usefullife"
+msgstr "使用寿命"
+
+msgid "ratedlife"
+msgstr "额定寿命"
+
+msgid "position"
+msgstr "使用位置"
+
+msgid "createtime"
+msgstr "创建时间"
+
+msgid "updateuser"
+msgstr "操作用户"
+
+msgid "usetime"
+msgstr "使用时间"
+
+msgid "usenumber"
+msgstr "使用次数"
+
+msgid "updatetime"
+msgstr "操作时间"
+
+msgid "CMS Admin"
+msgstr "CMS后台管理"
+
+msgid "Success"
+msgstr "成功"
+
+msgid "Warning"
+msgstr "警告"
+
+msgid "Error"
+msgstr "系统异常"
+
+msgid "entertime"
+msgstr "进厂时间"
+
+msgid "Query"
+msgstr "查询"
+
+msgid "Using"
+msgstr "使用中"
+
+msgid "Scrapping"
+msgstr "报废中"
+
+msgid "Scraped"
+msgstr "已报废"
+
+msgid "Stock"
+msgstr "库存"
+
+msgid "All"
+msgstr "全部"
+
+msgid "Operator"
+msgstr "操作人员"
+
+msgid "mark"
+msgstr "标示(包装上之标示需可清楚识别材料之品名、料号、批号、数量、GP、供应商等资料)"
+
+msgid "pkg"
+msgstr "包装(包装需完整，不可有脏污、破环等状况)"
+
+msgid "appearance"
+msgstr "刀锋外观(目视无外扩/钝化/凸起/变形)"
+
+msgid "OQC"
+msgstr "出货数据(确认有无出货检验报告及其內容是否符合厂內要求﹔若不符要求，应予拒收)"
+
+msgid "Stock Operation"
+msgstr "库存操作"
+
+msgid "Location"
+msgstr "存储位置"
+
+msgid "Manager"
+msgstr "管理员"
+
+msgid "OperationType"
+msgstr "库存操作类型"
+
+msgid "OperationTime"
+msgstr "库存操作时间"
+
+msgid "location"
+msgstr "存储位置"
+
+msgid "manager"
+msgstr "管理员"
+
+msgid "operationtype"
+msgstr "库存操作类型"
+
+msgid "operationtime"
+msgstr "库存操作时间"
+
+msgid "operator"
+msgstr "操作人员"
+
+msgid "Receive"
+msgstr "领取"
+
+msgid "Return"
+msgstr "归还"
+
+msgid "receive"
+msgstr "领取"
+
+msgid "return"
+msgstr "归还"
+
+msgid "TestPoint"
+msgstr "测试点位"
+
+msgid "Point"
+msgstr "点位"
+
+msgid "StandardValue"
+msgstr "标准值"
+
+msgid "MeasuredValue"
+msgstr "实测值"
+
+msgid "DimensionalRecord (mm)"
+msgstr "尺寸检验(单位:mm)"
+
+msgid "BladeWidth (mm)"
+msgstr "刀锋宽度(单位:mm)"
+
+msgid "Value"
+msgstr "值"
+
+msgid "Angle"
+msgstr "角"
+
+msgid "BladeAngle (°)"
+msgstr "刀锋角度(单位:°)"
+
+msgid "Scrap Operation"
+msgstr "报废操作"
+
+msgid "Confirm Scrap"
+msgstr "确认报废"
+
+msgid "Forced Scrap"
+msgstr "强制报废"
+
+msgid "inscrapping"
+msgstr "进入报废"
+
+msgid "True"
+msgstr "是"
+
+msgid "False"
+msgstr "否"
+
+msgid "Y"
+msgstr "是"
+
+msgid "N"
+msgstr "否"
+
+msgid "InScrapping"
+msgstr "进入报废"
+
+msgid "Please enter a location"
+msgstr "请输入存储位置"
+
+msgid "ErrorRange"
+msgstr "误差范围"
+
+msgid "MeasuredValue must be within range StandardValue ± ErrorRange."
+msgstr "实测值必须在标准值±误差范围之间"
+
+msgid "MeshPlugging"
+msgstr "网孔堵塞"
+
+msgid "EmulsionShedding"
+msgstr "乳剂脱落"
+
+msgid "ConsumableType"
+msgstr "耗材类型"
+
+msgid "Basic Settings"
+msgstr "基本设定"
+
+msgid "Moulds Info"
+msgstr "刀模信息"
+
+msgid "Screen Info"
+msgstr "网板信息"
+
+msgid "Advanced Settings"
+msgstr "进阶设定"
+
+msgid "Arg"
+msgstr "参数"
+
+msgid "Arg1"
+msgstr "参数1"
+
+msgid "Arg2"
+msgstr "参数2"
+
+msgid "MeasuredValue1"
+msgstr "实测值1"
+
+msgid "MeasuredValue2"
+msgstr "实测值2"
+
+msgid "Spacing (mm)"
+msgstr "Mark间距(单位:mm)"
+
+msgid "Tension (N)"
+msgstr "九点张力(单位:N)"
+
+msgid "Moulds"
+msgstr "刀模"
+
+msgid "Screen"
+msgstr "网板"
+
+msgid "ConsumableTypeGroup"
+msgstr "耗材类型群组"
+
+msgid "ConsumableTypeDefinition"
+msgstr "耗材类型定义"
+
+msgid "Export to Excel"
+msgstr "导出到Excel"
+
+msgid "Consumable Info"
+msgstr "耗材信息"
+
+msgid "Receive/Return History"
+msgstr "領取/歸還記錄"
+
+msgid "No MeshPlugging"
+msgstr "网孔无堵塞"
+
+msgid "No EmulsionShedding"
+msgstr "乳剂无脱落"
+
+msgid "Spot Check Info"
+msgstr "点检信息"
+
+msgid "Spot Check"
+msgstr "点检"
+
+msgid "CheckOperator"
+msgstr "检测人员"
+
+msgid "CheckTime"
+msgstr "点检时间"
+
+msgid "Consumable UsageInfo"
+msgstr "耗材使用记录"
+
+msgid "Moulds UsageInfo"
+msgstr "刀模使用记录"
+
+msgid "Moulds Usage"
+msgstr "刀模使用"
+
+msgid "PrintingNumber"
+msgstr "本次印刷次数"
+
+msgid "Print_Operator"
+msgstr "印刷作业人"
+
+msgid "AddUpPrint"
+msgstr "累计印刷次数"
+
+msgid "Add_Operator"
+msgstr "累计作业人"
+
+msgid "Clean"
+msgstr "是否清洗"
+
+msgid "Clean_Operator"
+msgstr "清洗作业人"
+
+msgid "Screen UsageInfo"
+msgstr "网板使用记录"
+
+msgid "Screen Usage"
+msgstr "网板使用"
+
+msgid "Scrap Info"
+msgstr "报废信息"
+
+msgid "Create Consumable"
+msgstr "新建耗材"
+
+msgid "MouldsModel"
+msgstr "刀模机种"
+
+msgid "MouldsVersion"
+msgstr "刀模版本"
+
+msgid "MouldsType"
+msgstr "刀模类别"
+
+msgid "ScreenVersion"
+msgstr "网板版本"
+
+msgid "ScreenType"
+msgstr "网板类别"
+
+msgid "ScreenModel"
+msgstr "网板机种"
+
+msgid "XStandardValue"
+msgstr "X标准值"
+
+msgid "XMeasuredValue1"
+msgstr "X实测值1"
+
+msgid "XMeasuredValue2"
+msgstr "X实测值2"
+
+msgid "YStandardValue"
+msgstr "Y标准值"
+
+msgid "YMeasuredValue1"
+msgstr "Y实测值1"
+
+msgid "YMeasuredValue2"
+msgstr "Y实测值2"
+
+msgid "ZStandardValue"
+msgstr "Z标准值"
+
+msgid "ZMeasuredValue1"
+msgstr "Z实测值1"
+
+msgid "ZMeasuredValue2"
+msgstr "Z实测值2"
+
+msgid "TMeasuredValue1"
+msgstr "张力实测值1"
+
+msgid "TMeasuredValue2"
+msgstr "张力实测值2"
+
+msgid "TMeasuredValue3"
+msgstr "张力实测值3"
+
+msgid "TMeasuredValue4"
+msgstr "张力实测值4"
+
+msgid "TMeasuredValue5"
+msgstr "张力实测值5"
+
+msgid "TMeasuredValue6"
+msgstr "张力实测值6"
+
+msgid "TMeasuredValue7"
+msgstr "张力实测值7"
+
+msgid "TMeasuredValue8"
+msgstr "张力实测值8"
+
+msgid "TMeasuredValue9"
+msgstr "张力实测值9"

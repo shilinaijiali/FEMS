@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    {% csrf_token %}
+
+    <!-- =============================================================================Card================ -->
+    <div class="card h-100 d-flex flex-column">
+        <!-- =========================================================================Card Header========= -->
+        <div class="card-header">
+            <img src={% static "img/GIS.png" %}>
+        </div>
+        <!-- =========================================================================Card Body=========== -->
+        <div class="card-body flex-grow-8" style="height: 510px !important"></div>
+        <!-- =========================================================================Card Footer========= -->
+        <div class="card-footer py-4">
+{#        <div class="card-footer bg-dark py-4">#}
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-md-5 mb-3 mb-md-0">#}
+{#                        <p class="text-white text-center">System: CMS</p>#}
+{#                        <p class="text-white text-center">(Consumable Management System)</p>#}
+{#                    </div>#}
+{#                    <div class="col-md-3 mb-3 mb-md-0">#}
+{#                        <p class="text-white text-center">Copyright © 2023 GIS</p>#}
+{#                    </div>#}
+{#                    <div class="col-md-2 mb-3 mb-md-0">#}
+{#                        <p class="text-white text-center">Version 1.0</p>#}
+{#                    </div>#}
+{#                    <div class="col-md-2 mb-3 mb-md-0">#}
+{#                        <p class="text-white text-center">Author: Joker</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+    </div>
+{% endblock %}
+
+

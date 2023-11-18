@@ -1,0 +1,45 @@
+.table thead th {
+    border-color: #fff;
+}
+
+.table tbody tr:hover {
+    background: linear-gradient(45deg, rgba(5, 118, 255, 1) 0%, rgba(36, 248, 255, 1) 100%);
+    color: #000;
+}
+
+.table thead th {
+    background-color: rgba(255, 138, 138, 0.99);
+    border: 1px solid #fff;
+    border-bottom: 2px solid transparent;
+    font-weight: bold;
+    padding: 10px 10px;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    width: auto;
+}
+
+.table tbody td {
+    padding: 5px 5px;
+    text-align: center;
+    vertical-align: middle;
+    width: auto;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+/*.table-bordered {*/
+/*    border: 3px solid #d01414;*/
+/*}*/
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid transparent;
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+    border-bottom-width: 3px;
+}
+

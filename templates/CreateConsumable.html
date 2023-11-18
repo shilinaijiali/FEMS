@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    {% csrf_token %}
+
+    <!-- =============================================================================Card================ -->
+    <div class="card h-100 d-flex flex-column">
+        <!-- =========================================================================Card Header========= -->
+        <div class="card-header">
+            <div class="title_style">
+                <span class="title_span_style">{{ title_name }}</span>
+            </div>
+            <div class="form_all border border-3 p-3 border_style">
+                <div class="row align-items-center ">
+                    <div class="col-md-auto">
+                        <label class="form-label my-label">{% trans "Excel" %}:</label>
+                        <label for="fileInput"></label><input type="file" id="fileInput" class="form-control">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12 d-flex justify-content-end align-items-center">
+                        <button id="id_submit" type="submit" class="btn btn-secondary me-2 button_style rot-135">{% trans "Submit" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- =========================================================================Card Body=========== -->
+        <div class="card-body flex-grow-8">
+        </div>
+        <!-- =========================================================================Card Footer========= -->
+        <div class="card-footer">
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            // 监听提交按钮的点击事件
+            $('#id_submit').click(function (event) {
+                // 阻止按钮的默认行为
+                event.preventDefault();
+
+                // 获取文件输入框中的文件
+                const fileInput = $('#fileInput')[0];
+
+                if (fileInput && fileInput.files && fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const fileName = file.name;
+                    const fileType = fileName.substring(fileName.lastIndexOf('.') + 1);
+                    // 创建FormData对象，用于将文件传递给后端
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    if (fileType === 'xlsx' || fileType === 'xls') {
+                        // 发送AJAX请求
+                        $.ajax({
+                            url: '',
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function (reply) {
+                                if (reply.type === 'success') {
+                                    $("#fileInput").val('')
+                                }
+                                myAlert(reply.msg, reply.type)
+                            },
+                        });
+                    } else {
+                        myAlert('该文件不为Excel文件！', 'danger')
+                    }
+                } else {
+                    myAlert('请选择上传Excel文件！', 'danger')
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+
+

@@ -1,0 +1,150 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Fire Eqp Info Management System" %}</title>
+
+    <link rel="shortcut icon" href="{% static 'img/GIS_icon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap.rtl.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap.rtl.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-grid.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-grid.rtl.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-grid.rtl.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-reboot.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-reboot.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-reboot.rtl.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-reboot.rtl.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-utilities.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-utilities.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-utilities.rtl.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-utilities.rtl.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datepicker.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/searchPanes.dataTables.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/buttons.dataTables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/select.dataTables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/select2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/tabel.css' %}">
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-5.1.3-dist/js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-5.1.3-dist/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-5.1.3-dist/js/bootstrap.bundle.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script type="module" src="{% static 'bootstrap-5.1.3-dist/js/bootstrap.esm.js' %}"></script>
+    <script type="module" src="{% static 'bootstrap-5.1.3-dist/js/bootstrap.esm.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap-datepicker.zh-CN.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dataTables.buttons.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/buttons.html5.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dataTables.select.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/searchPanes.dataTables.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/select2.min.js' %}"></script>
+    <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+    <script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/xlsx.full.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/FileSaver.min.js' %}"></script>
+</head>
+
+<body>
+
+<div class="container-fluid px-0">
+    <div class="row" style="--bs-gutter-x: 8rem;">
+        <div class="col-md-1 bg-light position-static">
+            <div class="primary-nav">
+                <button href="#" class="hamburger open-panel nav-toggle">
+                    <span class="screen-reader-text">Menu</span>
+                </button>
+                <nav role="navigation" class="menu">
+                    <a class="logotype" href={% url 'home' %}><span>CMS●{{ username }}</span></a>
+                    <div class="overflow-container">
+                        <ul class="menu-dropdown">
+                            <li><a href={% url 'home' %}>{% trans "Home" %}</a><span class="icon"><i class="fa fa-home"></i></span></li>
+                            <li><a href={% url 'logout' %}>{% trans "Logout" %}</a><span class="icon"><i class="fa fa-sign-out-alt"></i></span></li>
+                            <li class="menu-hasdropdown">
+                                <a href="#">{% trans "Language Changed" %}</a><span class="icon"><i class="fa fa-language"></i></span>
+                                <label title="toggle menu" for="settings">
+                                    <span class="downarrow"><i class="fas fa-caret-down"></i></span>
+                                </label>
+                                <input type="checkbox" class="sub-menu-checkbox" id="settings"/>
+                                <ul class="sub-menu-dropdown">
+                                    {% for language in languages %}
+                                        <li>
+                                            <a href={{ "/lang/"|add:language.code|add:"/" }}>
+                                                <span class="nav-text">{{ language.name_local }}</span></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li class="menu-hasdropdown">
+                                <a href="#">{% trans "Consumable Manage" %}</a><span class="icon"><i class="fa fa-tools"></i></span>
+                                <label title="toggle menu" for="moulds">
+                                    <span class="downarrow"><i class="fa fa-caret-down"></i></span>
+                                </label>
+                                <input type="checkbox" class="sub-menu-checkbox" id="moulds"/>
+                                <ul class="sub-menu-dropdown">
+                                    <li>
+                                        <a href={% url 'CMSapp:ConsumableQuery' %}><span class="nav-text">{% trans "Consumable Query" %}</span></a>
+                                    </li>
+                                    <li>
+                                        <a href={% url 'CMSapp:ScreenUsage' %}><span class="nav-text">{% trans "Screen Usage" %}</span></a>
+                                    </li>
+                                    <li>
+                                        <a href={% url 'CMSapp:MouldsUsage' %}><span class="nav-text">{% trans "Moulds Usage" %}</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% if request.user.is_staff %}
+                                <li class="menu-hasdropdown">
+                                    <a href="#">{% trans "Scrap Operation" %}</a><span class="icon"><i class="fa fa-heart-broken"></i></span>
+                                    <label title="toggle menu" for="scrap">
+                                        <span class="downarrow"><i class="fa fa-caret-down"></i></span>
+                                    </label>
+                                    <input type="checkbox" class="sub-menu-checkbox" id="scrap"/>
+                                    <ul class="sub-menu-dropdown">
+                                        <li>
+                                            <a href={% url 'CMSapp:ForcedScrap' %}><span class="nav-text">{% trans "Forced Scrap" %}</span></a>
+                                        </li>
+                                        <li>
+                                            <a href={% url 'CMSapp:ConfirmScrap' %}><span class="nav-text">{% trans "Confirm Scrap" %}</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+                            {% if request.user.is_superuser %}
+                                <li><a href={% url 'CMSapp:StockOperation' %}>{% trans "Stock Operation" %}</a><span class="icon"><i class="fa fa-cubes"></i></span></li>
+                                <li><a href={% url 'CMSapp:create_consumable_by_excel' %}>{% trans "Create Consumable" %}</a><span class="icon"><i class="fa fa-plus"></i></span></li>
+                                <li><a href={% url 'admin:index' %}>{% trans "CMS Admin" %}</a><span class="icon"><i class="fa fa-user"></i></span></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="col-md-11 ms-auto order-md-last ml-md-1 py-0" style="height: 100% !important;padding-right: 5rem !important;padding-left: 5rem !important; ">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+<script></script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    {% csrf_token %}
+
+    <!-- 右侧内容 -->
+    <!-- =============================================================================Card================ -->
+    <div class="card h-100 d-flex flex-column">
+        <!-- =========================================================================Card Header========= -->
+        <div class="card-header">
+            <div class="title_style">
+                <span class="title_span_style">{{ title_name }}</span>
+            </div>
+            <div class="form_all border border-3 p-3 border_style">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "Moulds" %}:</label>
+                        <label for="id_sn"></label><input type="text" id="id_sn" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "ConsumableType" %}:</label>
+                        <label for="id_ConsumableType"></label><input type="text" id="id_ConsumableType" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "Model" %}:</label>
+                        <label for="id_model"></label><input type="text" id="id_model" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "VersionType" %}:</label>
+                        <label for="id_version"></label><input type="text" id="id_version" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "ToolType" %}:</label>
+                        <label for="id_tooltype"></label><input type="text" id="id_tooltype" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "Status" %}:</label>
+                        <label for="id_status"></label><input type="text" id="id_status" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "RatedLife" %}:</label>
+                        <label for="id_ratedlife"></label><input type="text" id="id_ratedlife" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "RemainingLife" %}:</label>
+                        <label for="id_remaininglife"></label><input type="text" id="id_remaininglife" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "Operator" %}:</label>
+                        <label for="id_operator"></label><input type="text" id="id_operator" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "UseTime" %}:</label>
+                        {#                        <label for="id_usetime"></label><input type="datetime-local" id="id_usetime" class="form-control my-input">#}
+                        <label for="id_usetime"></label><input type="date" id="id_usetime" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "UseNumber" %}:</label>
+                        <label for="id_usenumber"></label><input type="text" id="id_usenumber" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "Position" %}:</label>
+                        <label for="id_position"></label><input type="text" id="id_position" class="form-control my-input">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label my-label">{% trans "Comment" %}:</label>
+                        <label for="id_comment"></label><input type="text" id="id_comment" class="form-control my-input">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12 d-flex justify-content-end align-items-center">
+                        <button id="id_show" type="submit" class="btn btn-secondary me-2 button_style rot-135">{% trans "Show" %}</button>
+                        <button id="id_ok" type="submit" class="btn btn-primary button_style rot-135">{% trans "Submit" %}</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- =========================================================================Card Body=========== -->
+        <div class="card-body flex-grow-8">
+            <div class="table-responsive border border-3 p-3 border_style table-with-title">
+                <h1>{% trans "Moulds UsageInfo" %}</h1>
+                <table id="usehistory_dt" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        {% for i in head_list %}
+                            <th>{{ i }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody id="usehistory_dt_tbody">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- =========================================================================Card Footer========= -->
+        <div class="card-footer">
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            myAlert("提示：确认输入刀模编号后,请先点击Show(显示)按钮进行查询使用记录！")
+            const readonly_list = ['id_ConsumableType', 'id_model', 'id_version', 'id_tooltype', 'id_ratedlife', 'id_remaininglife',
+                'id_status', 'id_operator'];
+            const usehistory_dt = $("#usehistory_dt").DataTable(dt);
+            let queryString = window.location.search
+            if (queryString !== '') {
+                const urlParams = new URLSearchParams(queryString);
+                const sn = urlParams.get('id_sn')
+                const ConsumableType = urlParams.get('id_ConsumableType')
+                const model = urlParams.get('id_model')
+                const version = urlParams.get('id_version')
+                const tooltype = urlParams.get('id_tooltype')
+                const ratedlife = urlParams.get('id_ratedlife')
+                const usefullife = urlParams.get('id_usefullife')
+                const status = urlParams.get('id_status')
+                const remaininglife = parseInt(ratedlife) - parseInt(usefullife)
+                const input_list = [ConsumableType, model, version, tooltype, ratedlife, remaininglife, status]
+                set_input_values(input_list, readonly_list)
+                set_attr_readonly(readonly_list)
+                $("#id_sn").val(sn)
+            } else {
+                const sn = $("#id_sn").val()
+                const ConsumableType = $("#id_ConsumableType").val()
+                const model = $("#id_model").val()
+                const version = $("#id_version").val()
+                const tooltype = $("#id_tooltype").val()
+                const ratedlife = $("#id_ratedlife").val()
+                const status = $("#id_status").val()
+                const remaininglife = $("#id_remaininglife").val()
+                const input_list = [ConsumableType, model, version, tooltype, ratedlife, remaininglife, status]
+                $("#id_sn").val(sn)
+                set_input_values(input_list, readonly_list)
+                set_attr_readonly(readonly_list)
+            }
+
+
+            function show() {
+                let sn = $("#id_sn").val()
+                if (sn !== '') {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/CMS/MouldsUsageInfo/',
+                        data: {
+                            'sn': sn,
+                        },
+                        success: function (reply) {
+                            if (reply.type === 'success') {
+                                let data = reply.data
+                                let input_list = data['input_list']
+                                let usehistory_list = data['usehistory_list']
+                                list_to_dt_data_add_id(usehistory_dt, usehistory_list, 'clear')
+                                set_input_values(input_list, readonly_list)
+                            } else {
+                                myAlert(reply.msg, reply.type)
+                            }
+                        }
+                    })
+                } else {
+                    myAlert("提示：请输入刀模编号！", 'danger')
+                }
+            }
+
+            $("#id_show").click(function () {
+                show();
+            })
+
+            $("#id_sn").keydown(function (e) {
+                if (e.keyCode === 13) {
+                    show();
+                }
+            })
+
+            function submit() {
+                let sn = $("#id_sn").val()
+                let model = $("#id_model").val()
+                let version = $("#id_version").val()
+                let tooltype = $("#id_tooltype").val()
+                let usetime = $("#id_usetime").val()
+                let usenumber = $("#id_usenumber").val()
+                let position = $("#id_position").val()
+                let operator = $("#id_operator").val()
+                let comment = $("#id_comment").val()
+                let ratedlife = $("#id_ratedlife").val()
+                let remaininglife = $("#id_remaininglife").val()
+                let status = $("#id_status").val()
+                let data_list = [sn, usetime, usenumber, position, comment, remaininglife, ratedlife, status, operator, model, version, tooltype]
+                if (sn !== '' && usetime !== '' && usenumber !== '' && position !== '' && operator !== '') {
+                    if (status === 'Using' || status === '使用中') {
+                        $.ajax({
+                            type: 'POST',
+                            url: '',
+                            data: {
+                                'data_list': JSON.stringify(data_list),
+                            },
+                            success: function (reply) {
+                                if (reply.type === 'success') {
+                                    let data = reply.data
+                                    let mouldsusehistory_list = data['mouldsusehistory_list']
+                                    let remaininglife = data['remaininglife']
+                                    let status = data['status']
+                                    $("#id_remaininglife").val(remaininglife)
+                                    $("#id_status").val(status)
+                                    list_to_dt_data_add_id(usehistory_dt, mouldsusehistory_list, 'clear')
+                                }
+                                set_val_empty(["id_usetime", "id_usenumber", "id_position", "id_operator", "id_comment"])
+                                myAlert(reply.msg, reply.type)
+                            }
+                        })
+                    } else {
+                        myAlert("提示：刀模状态不为使用中！", 'danger')
+                    }
+                } else {
+                    myAlert("提示：除备注以外,都是必填栏位哦!", 'danger')
+                }
+
+            }
+
+            $("#id_ok").click(function () {
+                submit();
+            })
+        })
+    </script>
+{% endblock %}

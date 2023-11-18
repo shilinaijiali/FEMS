@@ -1,0 +1,35 @@
+{% load static %}
+{% load i18n %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Fire Eqp Info Management System" %}</title>
+    <link rel="shortcut icon" href="{% static 'img/GIS_icon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+</head>
+<body>
+<div>
+    <form action="{% url 'login' %}" method='post'>
+        <div class="con">
+            <header>
+                <h2>{% trans "Fire Eqp Info Management System" %}</h2>
+            </header>
+            <br>
+            <div>
+                <span class="input-item"><i class="fa fa-user"></i></span><label for="username"></label><input class="form-input" name="username" id="username" type="text" placeholder="User" required>
+                <br>
+                <span class="input-item"><i class="fa fa-key"></i></span><label for="password"></label><input class="form-input" type="password" placeholder="Password" name="password" id="password" required>
+                <span><i class="fa fa-eye-slash" aria-hidden="true" type="button" id="eye"></i></span>
+                <br>
+                <button type="submit" class="button2 b-blue rot-135">{% trans "Login" %}</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
